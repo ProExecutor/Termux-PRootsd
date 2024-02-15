@@ -1,0 +1,8 @@
+libdir=/data/data/com.termux/files/usr/lib
+includedir=/data/data/com.termux/files/usr/include
+
+Name: apt-pkg
+Description: package management runtime library
+Version: 2.5.2
+Libs: -L${libdir} -lapt-pkg -pthread
+Cflags: -I${includedir}

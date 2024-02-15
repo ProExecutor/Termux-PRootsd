@@ -1,0 +1,12 @@
+prefix=/data/data/com.termux/files/usr
+exec_prefix=${prefix}
+libdir=/data/data/com.termux/files/usr/lib
+includedir=${prefix}/include
+
+Name: libtirpc
+Description: Transport Independent RPC Library
+Requires:
+Version: 1.3.2
+Libs: -L${libdir} -ltirpc
+Libs.private:
+Cflags: -I${includedir}/tirpc

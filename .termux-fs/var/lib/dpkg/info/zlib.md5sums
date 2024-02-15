@@ -1,0 +1,6 @@
+d052cdaefe45e36c1ad41fba9add4724  data/data/com.termux/files/usr/lib/pkgconfig/zlib.pc
+615f838b1bb321da1e5454daa07b7526  data/data/com.termux/files/usr/lib/libz.so.1.2.12
+95e83c46958f6395f746c80cc6799e76  data/data/com.termux/files/usr/include/zconf.h
+d3e8793e6d1b7c77d2a7732246f14063  data/data/com.termux/files/usr/include/zlib.h
+fe528834b31a25da511be71a4afa3254  data/data/com.termux/files/usr/share/man/man3/zlib.3.gz
+baecc3ae8ca793561d38a0d45ee35665  data/data/com.termux/files/usr/share/doc/zlib/LICENSE

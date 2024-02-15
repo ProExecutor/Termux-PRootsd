@@ -1,0 +1,9 @@
+bb02def6388572c7715736d6333fac9f  data/data/com.termux/files/usr/lib/liblz4.so
+5be3a824247562ac0f2c1b9a59bd8873  data/data/com.termux/files/usr/lib/cmake/lz4/lz4Config.cmake
+a219de35533da8691adf7dd8273b9bc2  data/data/com.termux/files/usr/lib/cmake/lz4/lz4Targets.cmake
+29a9b62dbcd335f867c37920bf254457  data/data/com.termux/files/usr/lib/cmake/lz4/lz4Targets-release.cmake
+094325f75f547288b2c00f11e4c7f553  data/data/com.termux/files/usr/lib/cmake/lz4/lz4ConfigVersion.cmake
+9cadcd7d4509cd5f34f9d9a590c83eba  data/data/com.termux/files/usr/lib/pkgconfig/liblz4.pc
+bd0448116ef6b870afef73033523abf1  data/data/com.termux/files/usr/include/lz4hc.h
+b227a2031eaf4502870e7b3bc43267f0  data/data/com.termux/files/usr/include/lz4frame.h
+083fc1426e07b3dc4be124c062f0ed5c  data/data/com.termux/files/usr/include/lz4.h

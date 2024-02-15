@@ -1,0 +1,13 @@
+prefix=/data/data/com.termux/files/usr
+exec_prefix=/data/data/com.termux/files/usr
+libdir=/data/data/com.termux/files/usr/lib
+includedir=${prefix}/include
+
+Name: unbound
+Description: Library with validating, recursive, and caching DNS resolver
+URL: http://www.unbound.net
+Version: 1.15.0
+Requires.private: python3   libevent
+Libs: -L${libdir} -lunbound
+Libs.private: -lssl -levent  -lcrypto -lnghttp2
+Cflags: -I${includedir}

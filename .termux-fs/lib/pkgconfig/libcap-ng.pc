@@ -1,0 +1,11 @@
+prefix=/data/data/com.termux/files/usr
+exec_prefix=${prefix}
+libdir=/data/data/com.termux/files/usr/lib
+includedir=${prefix}/include
+
+Name: libcap-ng
+Description: An alternate posix capabilities library.
+Version: 0.8.3
+Libs: -L${libdir} -lcap-ng
+Cflags: -I${includedir}
+

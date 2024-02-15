@@ -1,0 +1,136 @@
+#!/data/data/com.termux/files/usr/bin/bash
+##
+## Termux script for backing up $PREFIX (package installation dir).
+## For restore script, see "termux-restore".
+##
+## Why it doesn't implement support for backing up $HOME: that's all
+## about implementation of termux-restore script:
+##
+##  * termux-restore can't selectively restore files due to tar option
+##     --recursive-unlink, that will erase file tree before extracting.
+##
+##  * termux-restore has to maintain support of piped input. Therefore
+##    we can't allow optional backup of home by termux-backup. Here is
+##    why: with piped input it is not possible to check contents of
+##    backup file (you can't seek piped content twice). We must be
+##    sure that all directories selected for restore are present
+##    inside archive and this is possible only with hardcoded
+##    configuration (e.g. backup only $PREFIX). Otherwise, for example,
+##    restore procedure may fail or even worse, erase all directories
+##    (potentially user data) that are not present in backup.
+##
+## Considering the mentioned 2 major issues, should be obvious that
+## we have literally 2 choices: either backup only $PREFIX or backup
+## both $HOME and $PREFIX unconditionally, to ensure consistency of
+## data passed to termux-restore.
+##
+## However the current choice is to stick to backing up only $PREFIX,
+## to leave responsibility of managing files in $HOME to user (as said
+## above, termux-restore script ERASES DATA before restore).
+##
+
+set -e -u
+
+export PREFIX=/data/data/com.termux/files/usr
+
+msg() {
+	echo "$*" >&2
+}
+
+show_usage() {
+	msg
+	msg "Usage: termux-backup [options] [output file]"
+	msg
+	msg "Script for backing up Termux installation directory, \$PREFIX."
+	msg "It WILL NOT backup your home directory."
+	msg
+	msg "Options:"
+	msg
+	msg " -h, --help             Show this information."
+	msg " -f, --force            Force write operations."
+	msg " --ignore-read-failure  Suppress read permission denials."
+	msg
+	msg "Backup is performed as TAR archive. Compression is determined"
+	msg "by output file extension. If file name is '-', then tarball is"
+	msg "written to stdout and is uncompressed."
+	msg
+}
+
+if [ ! -d "$PREFIX" ]; then
+	msg "[!] $PREFIX: directory does not exist."
+	exit 1
+fi
+
+if [ $# -lt 1 ]; then
+	msg
+	msg "[!] Not enough arguments."
+	show_usage
+	exit 1
+fi
+
+BACKUP_FILE_PATH=
+TAR_EXTRA_OPTS=
+FORCE_WRITE=false
+while (($# >= 1)); do
+	case "$1" in
+		--) shift 1; break;;
+		-\?|-h|--help|--usage)
+			show_usage
+			exit 0
+			;;
+		-f|--force)
+			FORCE_WRITE=true
+			;;
+		--ignore-read-failure)
+			TAR_EXTRA_OPTS="--ignore-failed-read --warning=no-failed-read"
+			;;
+		*)
+			if [ -z "$1" ]; then
+				msg
+				msg "[!] Backup file path should not be an empty string."
+				show_usage
+				exit 1
+			fi
+
+			# Filter all previously unrecognized options except '-', which is
+			# a valid backup output specification.
+			if [[ $1 =~ ^-.+ ]]; then
+				msg
+				msg "[!] Unknown option passed: ${1}"
+				show_usage
+				exit 1
+			fi
+
+			if [ -z "$BACKUP_FILE_PATH" ]; then
+				BACKUP_FILE_PATH=$1
+			else
+				msg
+				msg "[!] Redundant backup file path specified: ${1}"
+				show_usage
+				exit 1
+			fi
+			;;
+	esac
+	shift 1
+done
+
+if [ "$BACKUP_FILE_PATH" != "-" ]; then
+	TAR_EXTRA_OPTS="$TAR_EXTRA_OPTS --auto-compress"
+	if [ -e "$BACKUP_FILE_PATH" ] && ! $FORCE_WRITE; then
+		msg
+		msg "[!] Refusing to overwrite existing file without --force option: '$BACKUP_FILE_PATH'."
+		msg
+		exit 1
+	fi
+else
+	if [ -t 1 ]; then
+		msg
+		msg "[!] Refusing to write archive data to console."
+		msg
+		exit 1
+	fi
+fi
+
+msg "Backing up installed packages..."
+tar --warning=no-file-ignored $TAR_EXTRA_OPTS -c \
+	-f "$BACKUP_FILE_PATH" -C "/data/data/com.termux/files" ./usr

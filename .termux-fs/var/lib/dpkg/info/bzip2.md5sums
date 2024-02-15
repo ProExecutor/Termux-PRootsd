@@ -1,0 +1,11 @@
+6302349c24b4d2e2f5d4255fba05ee88  data/data/com.termux/files/usr/bin/bzgrep
+a7c7bf4ebeecc33073521e6169854d22  data/data/com.termux/files/usr/bin/bzip2recover
+524798105e0bb5c7493a1477f6f6f59e  data/data/com.termux/files/usr/bin/bzip2
+201763efda926c708e9d3e206b14490e  data/data/com.termux/files/usr/bin/bzmore
+b29520f974a6beaa9cf2dba5be4d1e0a  data/data/com.termux/files/usr/bin/bzdiff
+bd3e8777253fc410af9b5f09305a9b28  data/data/com.termux/files/usr/share/man/man1/bzcmp.1.gz
+bb8692d966af601d0cf8ba295f0fd7ef  data/data/com.termux/files/usr/share/man/man1/bzgrep.1.gz
+42617d72a2ddd1c4d738ba138bdb14a6  data/data/com.termux/files/usr/share/man/man1/bzip2.1.gz
+7be4265254a2be22d13e102601992dd5  data/data/com.termux/files/usr/share/man/man1/bzmore.1.gz
+05b6bc3705475a793179538980355f6e  data/data/com.termux/files/usr/share/man/man1/bzdiff.1.gz
+f4e94ade7abfb9c00731cbb52dee4b61  data/data/com.termux/files/usr/share/man/man1/bzless.1.gz
